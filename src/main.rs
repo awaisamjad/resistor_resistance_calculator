@@ -65,16 +65,7 @@ fn main() {
     let third_band_value = get_third_band_value(third_band_hashmap);
     let fourth_band_value = get_fourth_band_value(fourth_band_hashmap);
 
-    let resistor_value = ((first_band_value + second_band_value) * third_band_value) as f32;
-    let upper_resistor_value = (resistor_value * fourth_band_value).round();
-    let lower_resistor_value = resistor_value * (1.0 - (fourth_band_value - 1.0)).round();
-
-    println!(
-        "Resistor Value: {}  Upper Limit: {}  Lower Limit: {}",
-        resistor_value,
-        upper_resistor_value,
-        lower_resistor_value
-    );
+    calculate_and_print_resistor_value(first_band_value, second_band_value, third_band_value, fourth_band_value);
 }
 
 fn get_first_band_value(first_band_hashmap: HashMap<String, u32>) -> u32 {
@@ -155,4 +146,19 @@ fn get_fourth_band_value(fourth_band_hashmap: HashMap<String, f32>) -> f32 {
             }
         }
     }
+}
+
+fn calculate_and_print_resistor_value(
+    first_band_value: u32,
+    second_band_value: u32,
+    third_band_value: u32,
+    fourth_band_value: f32
+) -> (f32, f32, f32) {
+    let resistor_value = ((first_band_value + second_band_value) * third_band_value) as f32;
+    let upper_resistor_value = (resistor_value * fourth_band_value).round();
+    let lower_resistor_value = (resistor_value * (1.0 - (fourth_band_value - 1.0))).round();
+    println!("Resistor Value: {}Ω", resistor_value);
+    println!("Upper Resistor Value: {}Ω", upper_resistor_value);
+    println!("Lower Resistor Value: {}Ω", lower_resistor_value);
+    (resistor_value, upper_resistor_value, lower_resistor_value)
 }
