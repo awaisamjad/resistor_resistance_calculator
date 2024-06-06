@@ -155,8 +155,8 @@ fn calculate_and_print_resistor_value(
     fourth_band_value: f32
 ) -> (f32, f32, f32) {
     let resistor_value = ((first_band_value + second_band_value) * third_band_value) as f32;
-    let upper_resistor_value = resistor_value * (1.0 + fourth_band_value);
-    let lower_resistor_value = resistor_value * (1.0 - fourth_band_value);
+    let upper_resistor_value = resistor_value + (resistor_value*fourth_band_value);
+    let lower_resistor_value = resistor_value - (resistor_value*fourth_band_value);
     println!("Resistor Value: {}Ω", resistor_value);
     println!("Upper Resistor Value: {}Ω", upper_resistor_value);
     println!("Lower Resistor Value: {}Ω", lower_resistor_value);
